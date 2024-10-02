@@ -1,9 +1,7 @@
 {
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
-  "eslint.validate": ["javascript", "typescript"],
-  "editor.fontSize": 16,
-  "editor.fontFamily": " 'Courier New', monospace"
+  "eslint.validate": ["javascript", "typescript"]
 }

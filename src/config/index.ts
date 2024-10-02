@@ -12,6 +12,7 @@ export const config = {
   ESPORTIVA_KADU_CHAT_ID: "-1002095648285",
   BETGREEN_CHAT_ID: "-4235325042",
   HOMEBROKER_CHAT_ID: "-1002153658338",
+  HOMEBROKER_CHAT_ID2: "-1002324039991",
 };
 
 export const casasInfos = {
@@ -44,6 +45,10 @@ export const casasInfos = {
   homebroker: {
     baseURL: "https://operacoes-homebroker.vercel.app/api",
     chatId: config.HOMEBROKER_CHAT_ID,
+  },
+  homebroker2: {
+    baseURL: "https://operacoes-homebroker.vercel.app/api",
+    chatId: config.HOMEBROKER_CHAT_ID2,
   },
 };
 

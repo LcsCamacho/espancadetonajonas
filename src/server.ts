@@ -33,71 +33,10 @@ async function initHandlerMessagesHomebroker(bot: BotInstance) {
 
     console.log(post);
 
-    if (chatId.toString() === config.HOMEBROKER_CHAT_ID) {
-      // if (true) {
-      //@ts-ignore
-      // if (post.text.includes("GREEN")) {
-      //   console.log("WIN");
-      //   await db.collection("sinais").doc("resultados").set({
-      //     resultado: "GREEN",
-      //     updatedAt: new Date(),
-      //     createdAt: new Date(),
-      //     id: "1",
-      //     expired: false,
-      //   });
-      //   setTimeout(() => {
-      //     db.collection("sinais").doc("resultados").set({
-      //       resultado: "WAIT",
-      //       updatedAt: new Date(),
-      //       createdAt: new Date(),
-      //       id: "1",
-      //       expired: true,
-      //     });
-      //   }, 1000 * 60 * 1);
-      //   return;
-      // }
-      // //@ts-ignore
-      // if (post.text.includes("EMPATE")) {
-      //   console.log("EMPATE");
-      //   await db.collection("sinais").doc("resultados").set({
-      //     resultado: "EMPATE",
-      //     updatedAt: new Date(),
-      //     createdAt: new Date(),
-      //     id: "1",
-      //     expired: false,
-      //   });
-      //   setTimeout(() => {
-      //     db.collection("sinais").doc("resultados").set({
-      //       resultado: "WAIT",
-      //       updatedAt: new Date(),
-      //       createdAt: new Date(),
-      //       id: "1",
-      //       expired: true,
-      //     });
-      //   }, 1000 * 60 * 1);
-      //   return;
-      // }
-      // //@ts-ignore
-      // if (post.text.includes("RED")) {
-      //   console.log("RED");
-      //   await db.collection("sinais").doc("resultados").set({
-      //     resultado: "RED",
-      //     updatedAt: new Date(),
-      //     createdAt: new Date(),
-      //     id: "1",
-      //     expired: false,
-      //   });
-      //   setTimeout(() => {
-      //     db.collection("sinais").doc("resultados").set({
-      //       resultado: "WAIT",
-      //       updatedAt: new Date(),
-      //       createdAt: new Date(),
-      //       id: "1",
-      //       expired: true,
-      //     });
-      //   }, 1000 * 60 * 1);
-      //   return;
-      // }
+    if (
+      chatId.toString() === config.HOMEBROKER_CHAT_ID ||
+      chatId.toString() === config.HOMEBROKER_CHAT_ID2
+    ) {
       //@ts-ignore
       const infos = getParEntradaCompraVenda(post.text);
 
@@ -181,7 +120,7 @@ function getParEntradaCompraVenda(post: string) {
     return null;
   }
 
-  const regexExpiracao = /Expiração = (\d+) (Minuto|minutos)/i;
+  const regexExpiracao = /Expiração = (\d+) (Minutos|minutos)/i;
   const regexEntrada = /Entrada = (\d{2}:\d{2})/i;
 
   // Encontrar as correspondências
@@ -260,6 +199,17 @@ const Paridade = {
   "SOLANA (OTC)": "SOLANAOTC",
   "USDT (OTC)": "USDTOTC",
   "XRP (OTC)": "XRPOTC",
+  GOOGLE: "GOOGLE",
+  "APPLE INC": "APPLE",
+  XRP: "XRP",
+  AMAZON: "AMAZON",
+  "MCDONALD'S CORPORATION": "MCDONALDS",
+  SOLANA: "SOLANA",
+  "FACEBOOK INC": "FACEBOOK",
+  MICROSOFT: "MICROSOFT",
+  DOGECOIN: "DOGECOIN",
+  BITCOIN: "BITCOIN",
+  ETHEREUM: "ETHEREUM",
 };
 
 const Direcao = {
