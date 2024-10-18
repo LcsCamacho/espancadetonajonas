@@ -49,7 +49,14 @@ async function initHandlerMessagesHomebroker(bot: BotInstance) {
       if (!par || !expiracao || !entrada || !acao)
         return console.log("Erro ao pegar as informações");
 
-      await db.collection("sinais").doc("aovivo").set({
+      const isForex =
+        chatId.toString() === config.HOMEBROKER_CHAT_ID2;
+      const currentDocName = isForex ? "aovivoforex" : "aovivo";
+      const currentDocNameTeste = isForex
+        ? "aovivotesteforex"
+        : "aovivoteste";
+
+      await db.collection("sinais").doc(currentDocName).set({
         paridade: par,
         expiracao,
         horario: entrada,
@@ -60,19 +67,34 @@ async function initHandlerMessagesHomebroker(bot: BotInstance) {
         id: "1",
       });
 
-      await db.collection("sinais").doc("aovivoteste").set({
-        paridade: par,
-        expiracao,
-        horario: entrada,
-        direcao: acao,
-        expired: false,
-        updatedAt: new Date(),
-        createdAt: new Date(),
-        id: "1",
-      });
+      await db
+        .collection("sinais")
+        .doc(currentDocNameTeste)
+        .set({
+          paridade: par,
+          expiracao,
+          horario: entrada,
+          direcao: acao,
+          expired: false,
+          updatedAt: new Date(),
+          createdAt: new Date(),
+          id: "1",
+        });
 
       const dataExpiracao = horaParaDate(entrada);
       dataExpiracao?.setMinutes(dataExpiracao.getMinutes() + 2);
+
+      if (expiracao === "M3") {
+        dataExpiracao?.setMinutes(
+          dataExpiracao.getMinutes() + 3,
+        );
+      }
+
+      if (expiracao === "M5") {
+        dataExpiracao?.setMinutes(
+          dataExpiracao.getMinutes() + 5,
+        );
+      }
 
       const tempoParaExpirarEntrada =
         dataExpiracao?.getTime()! - new Date().getTime();
@@ -83,7 +105,7 @@ async function initHandlerMessagesHomebroker(bot: BotInstance) {
 
       setTimeout(async () => {
         console.log("Entrada expirada");
-        await db.collection("sinais").doc("aovivo").set({
+        await db.collection("sinais").doc(currentDocName).set({
           horario: "",
           paridade: "",
           expiracao: "",
@@ -120,7 +142,8 @@ function getParEntradaCompraVenda(post: string) {
     return null;
   }
 
-  const regexExpiracao = /Expiração = (\d+) (Minutos|minutos)/i;
+  const regexExpiracao =
+    /Expiração = (\d+) (Minutos|minutos|minuto|Minuto)/i;
   const regexEntrada = /Entrada = (\d{2}:\d{2})/i;
 
   // Encontrar as correspondências
@@ -219,6 +242,7 @@ const Direcao = {
 
 const Expiracao = {
   "1": "M1",
+  "3": "M3",
   "5": "M5",
   "15": "M15",
   "30": "M30",

@@ -5,6 +5,7 @@ export const config = {
   token_m10: "6251400262:AAEsMZnArltOcdM73AheblPtetXJ4ZKR7_g",
   token_homebroker:
     "7140356003:AAF3uvcCUOQefx01iLLEHyh5gSjQhdCHAKw",
+  token_kauan: "625140",
   DETONABET_CHAT_ID: "-4159341736",
   ESPANCABET_CHAT_ID: "-4188071259",
   M10BET_CHAT_ID: "-4181426316",
