@@ -1,9 +1,7 @@
-import { Telegraf, Context } from "telegraf";
-import { message } from "telegraf/filters";
+import { Context, Telegraf } from "telegraf";
 import { Update } from "telegraf/typings/core/types/typegram";
-import { casasInfos, config } from "../config";
+import { config } from "../config";
 import { updateTips } from "../cron/update";
-import axios from "axios";
 
 export type BotInstance = Telegraf<Context<Update>>;
 
@@ -56,10 +54,6 @@ export const runBot = async () => {
     config.token_homebroker,
   );
   botHomebroker.launch().catch(console.log);
-
-  const botKauan = new Telegraf(config.token_kauan);
-
-  botKauan.launch().catch(console.log);
 
   // bot.launch().catch(console.log);
   // bot2.launch().catch(console.log);
@@ -135,24 +129,5 @@ export const runBot = async () => {
   //     }).catch(console.log);
   //   }
   // });
-  return { botHomebroker, botKauan };
-};
-
-const sendToUpdateImage = async ({
-  photoUrl,
-  casa,
-  legenda,
-}: {
-  photoUrl: string;
-  casa: Casas;
-  legenda?: string;
-}) => {
-  const { data } = await axios.put(
-    casasInfos[casa].baseURL + "/futebol/tips",
-    {
-      image: photoUrl,
-      legenda,
-    },
-  );
-  console.log(data);
+  return { botHomebroker };
 };
